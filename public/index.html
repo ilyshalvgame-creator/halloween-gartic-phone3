@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Halloween Gartic - Final</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><div class="logo">🎃</div><div><h1>Halloween Gartic</h1><div class="subtitle">Улучшенная версия</div></div></div>
+    <div class="controls">
+      <input id="nameInput" placeholder="Ваш ник" />
+      <button id="createBtn" class="btn primary">Создать комнату</button>
+      <input id="joinRoomId" placeholder="Код комнаты" />
+      <button id="joinBtn" class="btn">Присоединиться</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <aside class="panel lobby">
+      <div class="panel-head">Комната</div>
+      <div id="roomInfo" class="room-info">Нет комнаты</div>
+      <ul id="playersList" class="players"></ul>
+      <div class="settings">
+        <label>Раундов: <input id="roundsInput" type="number" min="1" value="3" /></label>
+        <label>Время (сек): <input id="secondsInput" type="number" min="10" value="60" /></label>
+        <label>Режим:
+          <select id="modeSelect">
+            <option value="classic">Классический</option>
+            <option value="fast">Быстрый</option>
+            <option value="chain">Цепочка</option>
+          </select>
+        </label>
+      </div>
+      <div class="panel-foot">
+        <button id="startBtn" class="btn full">Начать игру</button>
+      </div>
+    </aside>
+
+    <section class="panel game" id="gameArea">
+      <div id="phaseBanner" class="phase">Ожидание</div>
+
+      <div id="writer" class="phasePanel hidden card">
+        <h2>Напишите хэллоуинскую фразу</h2>
+        <textarea id="promptInput" maxlength="120" placeholder="Например: призрак с фонарем"></textarea>
+        <div class="row">
+          <button id="randomPrompt" class="btn">Случайная подсказка</button>
+          <button id="submitPrompt" class="btn primary">Отправить</button>
+        </div>
+      </div>
+
+      <div id="drawer" class="phasePanel hidden card">
+        <h2 id="drawPrompt">Нарисуйте фразу:</h2>
+        <div class="tools">
+          <label>Кисть <input type="range" id="brushSize" min="1" max="40" value="6"></label>
+          <label>Цвет <input type="color" id="colorPicker" value="#ffffff"></label>
+          <button id="undoBtn" class="btn small">Отмена</button>
+          <button id="clearBtn" class="btn small">Очистить</button>
+          <button id="submitDraw" class="btn primary">Готово</button>
+        </div>
+        <div class="canvas-wrap"><canvas id="canvas" width="900" height="520"></canvas></div>
+        <div id="drawerNotice" class="muted small">Если вам не назначено рисовать, вы увидите этот текст и не сможете рисовать.</div>
+      </div>
+
+      <div id="guesser" class="phasePanel hidden card">
+        <h2>Опишите, что изображено</h2>
+        <input id="guessInput" placeholder="Ваш ответ" />
+        <button id="submitGuess" class="btn primary">Отправить</button>
+      </div>
+
+      <div id="reveal" class="phasePanel hidden card reveal-card">
+        <h2>Результаты</h2>
+        <div id="revealList" class="reveal-list"></div>
+        <div class="row"><button id="nextRound" class="btn full">Следующий раунд</button></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">Сделано для хэллоуинской вечеринки</footer>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/client.js"></script>
+</body>
+</html>
